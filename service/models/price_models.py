@@ -45,8 +45,8 @@ class PriceAdditional(AbstractPrice):
     Данные о ценах на дополнителные помещения
     additional_id - ссылка на экземпляр данных о дополнительном помещении
     """
-    additional_id = orm_models.ForeignKey(to='Option', on_delete=orm_models.CASCADE,
-                                          related_name='price_of_option',
+    additional_id = orm_models.ForeignKey(to='Additional', on_delete=orm_models.CASCADE,
+                                          related_name='price_of_additional',
                                           help_text='Доп. помещение', verbose_name='Доп. помещение')
 
     class Meta:

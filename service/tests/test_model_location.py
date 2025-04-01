@@ -1,0 +1,28 @@
+from django.test import TestCase
+from service.models import Location
+
+
+class LocationTestCase(TestCase):
+    """
+    Тестирование модели Location
+    """
+
+    def setUp(self):
+        self.true_data = {'name': 'Каминный зал',
+                          'description': 'Зал с камином',
+                          'max_occupancy': 20,
+                          'area': 9}
+        # self.false_data = {'name': 'Каминный зал'*5,
+        #                    'description': 'Зал с камином'*100,
+        #                    'max_occupancy': 20.3,
+        #                    'area': 10.5}
+        self.location_true = Location.objects.create(
+            name=self.true_data['name'],
+            description=self.true_data['description'],
+            max_occupancy=self.true_data['max_occupancy'],
+            area=self.true_data['area'],
+        )
+
+    def test_str_method(self):
+        self.assertEqual(str(self.location), self.location.name)
+

@@ -21,10 +21,19 @@ class Units(orm_models.TextChoices):
     PIECE = 'p', 'шт.'
 
 
-class Status(orm_models.TextChoices):
+class TimeStatus(orm_models.TextChoices):
     """
     Состояние брони
     """
     VACANCY = 'v', 'свободно'
     OCCUPIED = 'o', 'забронировано'
     UNAVAILABLE = 'u', 'недоступно'
+
+
+class BookingStatus(orm_models.TextChoices):
+    """
+    Состояние брони
+    """
+    NEW = 'n', 'новое'
+    CANCELLED = 'c', 'отменено'
+    CONFIRMED = 'f', 'подтверждено'

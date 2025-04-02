@@ -23,6 +23,7 @@ class Booking(orm_models.Model):
     booking_guest = orm_models.ForeignKey('Guest', on_delete=orm_models.PROTECT)
     booking_status = orm_models.CharField(max_length=1, choices=BookingStatus.choices,
                                           default=BookingStatus.NEW)
+    promocode_id = orm_models.ForeignKey('Promocode', on_delete=orm_models.PROTECT)
 
     class Meta:
         verbose_name = 'Бронирование'

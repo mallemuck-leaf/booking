@@ -7,6 +7,7 @@ class Connection(orm_models.TextChoices):
     WHATSAPP = 'w', 'whatsapp'
     VIBER = 'v', 'viber'
     INSTAGRAM = 'i', 'инстаграм'
+    EMAIL = 'e', 'эл. почта'
 
 
 class Guest(orm_models.Model):

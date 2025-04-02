@@ -40,3 +40,8 @@ class BookingAdditional(orm_models.Model):
     additional_id = orm_models.ForeignKey('Additional', on_delete=orm_models.CASCADE)
     additional_quantity = orm_models.PositiveSmallIntegerField(default=1)
 
+    def __str__(self):
+        booking = Booking.objects.get(pk=self.booking_id)
+        additional = Additional.objects.get(pk=self.additional_id)
+        return f'{str(booking)}: {str(additional)} x {self.additional_quantity}'
+

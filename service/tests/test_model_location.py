@@ -24,5 +24,10 @@ class LocationTestCase(TestCase):
         )
 
     def test_str_method(self):
-        self.assertEqual(str(self.location), self.location.name)
+        """
+        Проверка метода __str__
+        :return:
+        True
+        """
+        self.assertEqual(str(self.location_true), self.location_true.name)
 

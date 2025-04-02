@@ -1,11 +1,6 @@
 from service.models import *
 
 
-class Units(orm_models.TextChoices):
-    HOUR = 'h', 'час'
-    PIECE = 'p', 'шт.'
-
-
 class AbstractPrice(orm_models.Model):
     """
     Основа для таблиц изменения цен.

@@ -1,15 +1,6 @@
 from service.models import *
 
 
-class Connection(orm_models.TextChoices):
-    PHONE = 'p', 'телефон'
-    TELEGRAM = 't', 'телеграм'
-    WHATSAPP = 'w', 'whatsapp'
-    VIBER = 'v', 'viber'
-    INSTAGRAM = 'i', 'инстаграм'
-    EMAIL = 'e', 'эл. почта'
-
-
 class Guest(orm_models.Model):
     """
     Модель для данных клиента

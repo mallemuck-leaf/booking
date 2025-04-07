@@ -15,8 +15,10 @@ class Booking(orm_models.Model):
     booking_duration = orm_models.PositiveSmallIntegerField(verbose_name='Продолжительность бронирования',
                                                             help_text='Продолжительнось бронирования, в часах',
                                                             default=1)
-    booking_location = orm_models.ForeignKey('Location', on_delete=orm_models.PROTECT,
-                                             help_text='Помещение', verbose_name='Помещение')
+    booking_location = orm_models.ManyToManyField('Location', blank=True, related_name='locations',
+                                                  help_text='Помещение', verbose_name='Помещение')
+    booking_additional = orm_models.ManyToManyField('Additional', blank=True, related_name='additional',
+                                                    help_text='Дополнения', verbose_name='Дополнения')
     number_of_persons = orm_models.PositiveSmallIntegerField(blank=True, null=True,
                                                              help_text='Количество гостей',
                                                              verbose_name='Количество гостей')
@@ -33,16 +35,16 @@ class Booking(orm_models.Model):
         return f'{self.booking_start_date} {self.booking_start_time} {str(location)}'
 
 
-class BookingAdditional(orm_models.Model):
-    """
-    Дополнителные опции к брони
-    """
-    booking_id = orm_models.ForeignKey('Booking', on_delete=orm_models.CASCADE)
-    additional_id = orm_models.ForeignKey('Additional', on_delete=orm_models.CASCADE)
-    additional_quantity = orm_models.PositiveSmallIntegerField(default=1)
-
-    def __str__(self):
-        booking = Booking.objects.get(pk=self.booking_id)
-        additional = Additional.objects.get(pk=self.additional_id)
-        return f'{str(booking)}: {str(additional)} x {self.additional_quantity}'
+# class BookingAdditional(orm_models.Model):
+#     """
+#     Дополнителные опции к брони
+#     """
+#     booking_id = orm_models.ForeignKey('Booking', on_delete=orm_models.CASCADE)
+#     additional_id = orm_models.ForeignKey('Additional', on_delete=orm_models.CASCADE)
+#     additional_quantity = orm_models.PositiveSmallIntegerField(default=1)
+#
+#     def __str__(self):
+#         booking = Booking.objects.get(pk=self.booking_id)
+#         additional = Additional.objects.get(pk=self.additional_id)
+#         return f'{str(booking)}: {str(additional)} x {self.additional_quantity}'
 

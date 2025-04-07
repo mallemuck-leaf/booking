@@ -13,8 +13,8 @@ class Booking(orm_models.Model):
     booking_start_time = orm_models.TimeField(verbose_name='Время начала бронирования',
                                               help_text='Время начала бронирования')
     booking_duration = orm_models.PositiveSmallIntegerField(verbose_name='Продолжительность бронирования',
-                                                            help_text='Продолжительнось бронирования, в часах',
-                                                            default=1)
+                                                            help_text='Продолжительнось бронирования, в минутах',
+                                                            default=30)
     booking_location = orm_models.ManyToManyField('Location', blank=True, related_name='locations',
                                                   help_text='Помещение', verbose_name='Помещение')
     booking_additional = orm_models.ManyToManyField('Additional', blank=True, related_name='additional',
@@ -31,8 +31,16 @@ class Booking(orm_models.Model):
         verbose_name = 'Бронирование'
 
     def __str__(self):
-        location = Location.objects.get(pk=self.booking_location)
-        return f'{self.booking_start_date} {self.booking_start_time} {str(location)}'
+        # location = Location.objects.get(pk=self.booking_location)
+        return f'{self.booking_start_date} {self.booking_start_time}'
+
+    def get_booking_time(self):
+        if self.booking_status is BookingStatus.CONFIRMED:
+            booking_start_time = self.booking_start_time - timedelta(hours=0.5)
+            booking_end_time = self.booking_start_time + timedelta(hours=self.booking_duration/30 + 0.5)
+            return self.booking_start_date, booking_start_time, booking_end_time, self.booking_duration
+        else:
+            return self.booking_start_date, self.booking_start_time, self.booking_duration
 
 
 # class BookingAdditional(orm_models.Model):

@@ -1,5 +1,6 @@
 from django.test import TestCase
 from service.models import Location
+import pytest
 
 
 class LocationTestCase(TestCase):
@@ -31,3 +32,9 @@ class LocationTestCase(TestCase):
         """
         self.assertEqual(str(self.location_true), self.location_true.name)
 
+
+@pytest.mark.django_db
+class TestLocationModel:
+    def test_str_method(self, location_model):
+        location_object = Location.objects.get(pk=1)
+        assert str(location_object) == location_object.name

@@ -7,3 +7,4 @@ from .booking_models import *
 from .guest_models import *
 # from .datetime_models import *
 from .check_models import *
+from .promo_models import *

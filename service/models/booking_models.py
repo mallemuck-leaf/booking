@@ -1,4 +1,5 @@
 from service.models import *
+from service.models import BookingStatus
 
 
 class Booking(orm_models.Model):
@@ -8,14 +9,13 @@ class Booking(orm_models.Model):
     # booking_datetime = orm_models.ForeignKey('BookingTime', on_delete=orm_models.PROTECT,
     #                                          help_text='Дата и время бронирования',
     #                                          verbose_name='Дата и время бронирования')
-    booking_start_date = orm_models.DateField(verbose_name='Дата начала бронирования',
-                                              help_text='Дата начала бронирования')
-    booking_start_time = orm_models.TimeField(verbose_name='Время начала бронирования',
-                                              help_text='Время начала бронирования')
+    booking_start_datetime = orm_models.DateTimeField(default='2020-12-11 12:12')
+    # booking_start_time = orm_models.TimeField(verbose_name='Время начала бронирования',
+    #                                           help_text='Время начала бронирования')
     booking_duration = orm_models.PositiveSmallIntegerField(verbose_name='Продолжительность бронирования',
                                                             help_text='Продолжительнось бронирования, в минутах',
                                                             default=30)
-    booking_location = orm_models.ManyToManyField('Location', blank=True, related_name='locations',
+    booking_location = orm_models.ManyToManyField(to='Location', blank=True, related_name='locations',
                                                   help_text='Помещение', verbose_name='Помещение')
     booking_additional = orm_models.ManyToManyField('Additional', blank=True, related_name='additional',
                                                     help_text='Дополнения', verbose_name='Дополнения')
@@ -32,15 +32,21 @@ class Booking(orm_models.Model):
 
     def __str__(self):
         # location = Location.objects.get(pk=self.booking_location)
-        return f'{self.booking_start_date} {self.booking_start_time}'
+        # return f'{self.booking_start_date} {self.booking_start_time}'
+        return f'{self.booking_start_datetime}'
 
     def get_booking_time(self):
-        if self.booking_status is BookingStatus.CONFIRMED:
-            booking_start_time = self.booking_start_time - timedelta(hours=0.5)
-            booking_end_time = self.booking_start_time + timedelta(hours=self.booking_duration/30 + 0.5)
-            return self.booking_start_date, booking_start_time, booking_end_time, self.booking_duration
+        print(self.booking_status)
+        if self.booking_status == BookingStatus.CONFIRMED:
+            # booking_start_time = self.booking_start_time - timedelta(hours=0.5)
+            start_booking = self.booking_start_datetime - timedelta(minutes=30)
+            end_booking = self.booking_start_datetime + timedelta(hours=self.booking_duration, minutes=30)
+            # booking_end_time = self.booking_start_time + timedelta(hours=self.booking_duration/30 + 0.5)
+            return str(self.booking_start_datetime.date()), str(start_booking.time().strftime("%H:%M")), str(end_booking.time().strftime("%H:%M"))
+            # return self.booking_start_date, booking_start_time, booking_end_time, self.booking_duration
         else:
-            return self.booking_start_date, self.booking_start_time, self.booking_duration
+            return self.booking_start_datetime, self.booking_duration
+            # return self.booking_start_date, self.booking_start_time, 0, self.booking_duration
 
 
 # class BookingAdditional(orm_models.Model):

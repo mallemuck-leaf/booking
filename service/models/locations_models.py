@@ -45,5 +45,5 @@ class Additional(AbstractArea):
                                                      verbose_name='Общее количество')
 
     class Meta:
-        verbose_name = 'Дополнительное помещение'
-        verbose_name_plural = 'Дополнительные помещения'
+        verbose_name = 'Дополнительная услуга'
+        verbose_name_plural = 'Дополнительные услуги'

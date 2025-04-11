@@ -9,10 +9,12 @@ class Booking(orm_models.Model):
     # booking_datetime = orm_models.ForeignKey('BookingTime', on_delete=orm_models.PROTECT,
     #                                          help_text='Дата и время бронирования',
     #                                          verbose_name='Дата и время бронирования')
-    booking_start_datetime = orm_models.DateTimeField(default='2020-12-11 12:12')
+    booking_start_datetime = orm_models.DateTimeField(default=datetime.now(),
+                                                      verbose_name='Время начала бронирования',
+                                                      help_text='Время начала бронирования')
     # booking_start_time = orm_models.TimeField(verbose_name='Время начала бронирования',
     #                                           help_text='Время начала бронирования')
-    booking_duration = orm_models.PositiveSmallIntegerField(verbose_name='Продолжительность бронирования',
+    booking_duration = orm_models.PositiveSmallIntegerField(verbose_name='Продолжительность',
                                                             help_text='Продолжительнось бронирования, в минутах',
                                                             default=30)
     booking_location = orm_models.ManyToManyField(to='Location', blank=True, related_name='locations',
@@ -22,10 +24,14 @@ class Booking(orm_models.Model):
     number_of_persons = orm_models.PositiveSmallIntegerField(blank=True, null=True,
                                                              help_text='Количество гостей',
                                                              verbose_name='Количество гостей')
-    booking_guest = orm_models.ForeignKey('Guest', on_delete=orm_models.PROTECT)
+    booking_guest = orm_models.ForeignKey('Guest', on_delete=orm_models.PROTECT,
+                                          verbose_name='Гость', help_text='Выбрать')
     booking_status = orm_models.CharField(max_length=1, choices=BookingStatus.choices,
-                                          default=BookingStatus.NEW)
-    promocode_id = orm_models.ForeignKey('Promocode', on_delete=orm_models.PROTECT)
+                                          default=BookingStatus.NEW,
+                                          help_text='Выберите статус брони',
+                                          verbose_name='Состояние')
+    promocode_id = orm_models.ForeignKey('Promocode', on_delete=orm_models.PROTECT,
+                                         verbose_name='Промокод', help_text='Выберите промокод')
 
     class Meta:
         verbose_name = 'Бронирование'

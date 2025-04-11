@@ -16,18 +16,21 @@ class Guest(orm_models.Model):
     phone_number = orm_models.CharField(max_length=12, help_text='Номер телефона',
                                         verbose_name='Номер телефона', default=None,
                                         null=True, blank=True)
-    telegram_account = orm_models.CharField(max_length=12, help_text='Номер телефона',
-                                            verbose_name='Номер телефона', default=None,
+    telegram_account = orm_models.CharField(max_length=12, help_text='аккаунт в телеграм',
+                                            verbose_name='Telegram', default=None,
                                             null=True, blank=True)
-    viber_account = orm_models.CharField(max_length=12, help_text='Номер телефона',
-                                         verbose_name='Номер телефона', default=None,
-                                         null=True, blank=True)
-    whatsapp_account = orm_models.CharField(max_length=12, help_text='Номер телефона',
-                                            verbose_name='Номер телефона', default=None,
-                                            null=True, blank=True)
-    instagram_account = orm_models.CharField(max_length=12, help_text='Номер телефона',
-                                             verbose_name='Номер телефона', default=None,
+    # viber_account = orm_models.CharField(max_length=12, help_text='аккаунт в вайбер',
+    #                                      verbose_name='Viber', default=None,
+    #                                      null=True, blank=True)
+    # whatsapp_account = orm_models.CharField(max_length=12, help_text='аккаунт в ватсап',
+    #                                         verbose_name='Whatsapp', default=None,
+    #                                         null=True, blank=True)
+    instagram_account = orm_models.CharField(max_length=12, help_text='аккаунт в инстаграм',
+                                             verbose_name='Instagram', default=None,
                                              null=True, blank=True)
+    email = orm_models.CharField(max_length=12, help_text='электронная почта',
+                                 verbose_name='Email', default=None,
+                                 null=True, blank=True)
     telegram_chat_id = orm_models.CharField(max_length=15, help_text='Идентификатор чата в ТГ',
                                             verbose_name='Идентификатор чата в ТГ',
                                             default=None, null=True, blank=True)

@@ -12,6 +12,7 @@ class Promocode(orm_models.Model):
 
     class Meta:
         verbose_name = 'Промокод'
+        verbose_name_plural = 'Промокоды'
 
     def __str__(self):
         return f'{self.name}'
